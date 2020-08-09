@@ -47,9 +47,16 @@
 			function prettyPrint(){
 				var data = document.getElementById("inputbox").value;
 				var obj = JSON.parse(data);
-				console.log(obj);
-				return JSON.stringify(obj, undefined, 4);
+        var jstring = JSON.stringify(obj, undefined, 4);
+        document.getElementById("hidden").value = jstring;
+				return jstring;
 			}
+
+      function copyText(){
+        var texta = document.getElementById("hidden");
+        texta.select();
+        document.execCommand("copy");
+      }
 
 			function clearib(){
 				document.getElementById("inputbox").value = '';
@@ -76,18 +83,22 @@
       <br/>
       <div class ="row">
         <div class="col">
-          <button onclick="clearib()" class="btn btn-lg btn-outline-danger">Clear</button>
+          <button onclick="clearib()" class="btn btn-lg btn-danger">Clear</button>
         </div>
         <div class="col">
-          <button onclick="output(prettyPrint())" class="btn btn-lg btn-outline-success">Pretty Print</button>
+          <button onclick="output(prettyPrint())" class="btn btn-lg btn-success">Pretty Print</button>
         </div>
         <div class="col">
-          <button onclick="output(syntaxHighlight(prettyPrint()))" class="btn btn-lg btn-outline-primary">Colorful Print</button>
+          <button onclick="output(syntaxHighlight(prettyPrint()))" class="btn btn-lg btn-primary">Colorful Print</button>
         </div>
       </div>
       <br>
       <div class="row">
-        
+        <div class="float-right">
+          <button onclick="copyText()" type="button" class="btn btn-outline-info btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
+            Copy to clip-board
+          </button>
+        </div>
       </div>
       <div class="row">
         <div class="col">
@@ -96,7 +107,9 @@
           </pre>
         </div>
       </div>
+      <textarea id="hidden" class="invisible"></textarea>
     </div>
+    
 
 
     <!-- Optional JavaScript -->
