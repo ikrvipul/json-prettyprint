@@ -56,6 +56,7 @@
         var texta = document.getElementById("hidden");
         texta.select();
         document.execCommand("copy");
+        document.getElementById("copybtn").textContent= "Text Copied";
       }
 
 			function clearib(){
@@ -95,7 +96,7 @@
       <br>
       <div class="row">
         <div class="float-right">
-          <button onclick="copyText()" type="button" class="btn btn-outline-info btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
+          <button onclick="copyText()" id="copybtn" type="button" class="btn btn-outline-info btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
             Copy to clip-board
           </button>
         </div>
