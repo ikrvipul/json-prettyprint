@@ -9,10 +9,94 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
     <title>KV | JSON Beautifire</title>
+
+    <style type="text/css">
+			pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
+			.string { color: green; }
+			.number { color: darkorange; }
+			.boolean { color: blue; }
+			.null { color: magenta; }
+			.key { color: red; }
+    </style>
+    
+    <script>
+			function output(inp) {
+				//document.getElementById("one").appendChild(document.createElement('pre')).innerHTML = inp;
+        document.getElementById("one").innerHTML = inp;
+			}
+
+			function syntaxHighlight(json) {
+				json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+				return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+					var cls = 'number';
+					if (/^"/.test(match)) {
+						if (/:$/.test(match)) {
+						    cls = 'key';
+						} else {
+						    cls = 'string';
+						}
+					} else if (/true|false/.test(match)) {
+						cls = 'boolean';
+					} else if (/null/.test(match)) {
+						cls = 'null';
+					}
+					return '<span class="' + cls + '">' + match + '</span>';
+				});
+			}
+
+			function prettyPrint(){
+				var data = document.getElementById("inputbox").value;
+				var obj = JSON.parse(data);
+				console.log(obj);
+				return JSON.stringify(obj, undefined, 4);
+			}
+
+			function clearib(){
+				document.getElementById("inputbox").value = '';
+			}
+		</script>
   </head>
   <body class = "container-fluid">
-	
-	
+    <!-- Nav Area -->
+    <div class="row">
+
+    </div>
+
+    <!-- Body -->
+    <div class="container-xl">
+
+      <div class = "row">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Raw JSON</span>
+          </div>
+          <textarea id ="inputbox" class="form-control" aria-label="Raw JSON"></textarea>
+        </div>
+      </div>
+      <br/>
+      <div class ="row">
+        <div class="col">
+          <button onclick="clearib()" class="btn btn-lg btn-outline-danger">Clear</button>
+        </div>
+        <div class="col">
+          <button onclick="output(prettyPrint())" class="btn btn-lg btn-outline-success">Pretty Print</button>
+        </div>
+        <div class="col">
+          <button onclick="output(syntaxHighlight(prettyPrint()))" class="btn btn-lg btn-outline-primary">Colorful Print</button>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        
+      </div>
+      <div class="row">
+        <div class="col">
+        <pre id ="one" class="pre-scrollable" style="max-height: 600px;">
+
+          </pre>
+        </div>
+      </div>
+    </div>
 
 
     <!-- Optional JavaScript -->
