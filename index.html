@@ -10309,9 +10309,10 @@
 
 			function prettyPrint(){
 				var data = document.getElementById("inputbox").value;
+				var tabspace = document.getElementById("tabspace").value;
 				try{
 					var obj = JSON.parse(data);
-					var jstring = JSON.stringify(obj, undefined, 4);
+					var jstring = JSON.stringify(obj, undefined, parseInt(tabspace));
 					document.getElementById("hidden").value = jstring;
 					return jstring;
 				} catch(e){
@@ -10328,9 +10329,13 @@
 			function clearib(){
 				document.getElementById("inputbox").value = '';
 			}
+
+			function tabSpaceChanged(){
+				output(syntaxHighlight(prettyPrint()));
+			}
 		</script>
 	</head>
-	<body class = "container-fluid bg-dark">
+	<body class = "container-fluid bg-dark p-0">
 		<!-- Nav Area -->
 		<nav class="navbar navbar-dark bg-primary px-0 mx-0">
 			<!-- Navbar content -->
@@ -10359,10 +10364,27 @@
 				</div>
 			</div>
 			<br>
-			<div class="row px-3">
-				<button onclick="copyText()" id="copybtn" type="button" class="btn btn-outline-info btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
-					Copy to clip-board
-				</button>
+			<div class="row">
+				<div class="col">
+					<button onclick="copyText()" id="copybtn" type="button" class="btn btn-outline-info btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
+						Copy to clip-board
+					</button>
+				</div>
+				<div class="col-3">
+					<div class="input-group input-group-sm">
+						<div class="input-group-prepend">
+							<label class="input-group-text text-primary" for="inputGroupSelect01">one tab equals</label>
+						</div>
+						<select id="tabspace" onchange="tabSpaceChanged()" class="custom-select text-success" id="inputGroupSelect01">
+							<option value="2">two</option>
+							<option value="4" selected>four</option>
+							<option value="8">eight</option>
+						</select>
+						<div class="input-group-append">
+							<label class="input-group-text text-primary" for="inputGroupSelect01">spaces</label>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="row">
 				<div class="col">
