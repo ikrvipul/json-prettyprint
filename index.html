@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-    <title>KV | JSON Beautifire</title>
+    <title>KV | JSON Pretty Print</title>
 
     <style type="text/css">
 			pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
@@ -24,7 +24,6 @@
     
     <script>
 			function output(inp) {
-				//document.getElementById("one").appendChild(document.createElement('pre')).innerHTML = inp;
         document.getElementById("one").innerHTML = inp;
 			}
 
@@ -49,10 +48,14 @@
 
 			function prettyPrint(){
 				var data = document.getElementById("inputbox").value;
-				var obj = JSON.parse(data);
-        var jstring = JSON.stringify(obj, undefined, 4);
-        document.getElementById("hidden").value = jstring;
-				return jstring;
+        try{
+          var obj = JSON.parse(data);
+          var jstring = JSON.stringify(obj, undefined, 4);
+          document.getElementById("hidden").value = jstring;
+          return jstring;
+        } catch(e){
+            return "Invalid JSON!";
+        }
 			}
 
       function copyText(){
@@ -67,16 +70,18 @@
 			}
 		</script>
   </head>
-  <body class = "container-fluid">
+  <body class = "container-fluid bg-dark">
     <!-- Nav Area -->
-    <div class="row">
-
-    </div>
+    <nav class="navbar navbar-dark bg-primary px-0 mx-0">
+      <!-- Navbar content -->
+      <div class="container-xl">
+        <a class="navbar-brand" href="#">JSON Pretty Print</a>
+      </div>
+    </nav>
 
     <!-- Body -->
-    <div class="container-xl">
-
-      <div class = "row">
+    <div class="container-xl bg-light">
+      <div class = "row px-3 pt-3">
         <div class="input-group">
           <div class="input-group-prepend">
             <span class="input-group-text">Raw JSON</span>
@@ -97,16 +102,14 @@
         </div>
       </div>
       <br>
-      <div class="row">
-        <div class="float-right">
-          <button onclick="copyText()" id="copybtn" type="button" class="btn btn-outline-info btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
-            Copy to clip-board
-          </button>
-        </div>
+      <div class="row px-3">
+        <button onclick="copyText()" id="copybtn" type="button" class="btn btn-outline-info btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
+          Copy to clip-board
+        </button>
       </div>
       <div class="row">
         <div class="col">
-        <pre id ="one" class="pre-scrollable" style="max-height: 600px;">
+        <pre id ="one" class="pre-scrollable" style="min-height: 500px; max-height: 1000px;">
 
           </pre>
         </div>
@@ -118,8 +121,10 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+   <!--  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script> -->
+    
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   </body>
 </html>
