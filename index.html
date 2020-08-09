@@ -11,15 +11,13 @@
 	<title>KV | JSON Pretty Print</title>
 
 	<style type="text/css">
-		pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; min-height: 500px; max-height: 1000px;}
+		pre {outline: 1px solid #ccc; min-height: 470px; max-height: 470px;}
 		.string { color: green; }
 		.number { color: darkorange; }
 		.boolean { color: blue; }
 		.null { color: magenta; }
 		.key { color: red; }
-		textarea.form-control{
-			height: 250px;
-		}
+		textarea.form-control{ height: 250px; }
 	</style>
 	
 	<script>
@@ -70,49 +68,47 @@
 	</script>
 	</head>
 	<body class = "container-fluid bg-dark">
-	<!-- Nav Area -->
-	<nav class="navbar navbar-dark bg-primary px-0 mx-0">
-		<!-- Navbar content -->
-		<div class="container-xl">
-			<a class="navbar-brand" href="#">JSON Pretty Print</a>
-		</div>
-	</nav>
-
-	<!-- Body -->
-	<div class="container-xl bg-light">
-		<div class = "row px-3 pt-3">
-		<div class="input-group">
-			<div class="input-group-prepend">
-			<span class="input-group-text">Raw JSON</span>
+		<!-- Nav Area -->
+		<nav class="navbar navbar-dark bg-primary px-0 mx-0">
+			<!-- Navbar content -->
+			<div class="container-xl">
+				<a class="navbar-brand" href="#">JSON Pretty Print</a>
 			</div>
-			<textarea id ="inputbox" class="form-control" aria-label="Raw JSON"></textarea>
-		</div>
-		</div>
-		<br/>
-		<div class ="row">
-		<div class="col-6 d-flex justify-content-center">
-			<button onclick="output(syntaxHighlight(prettyPrint()))" class="btn btn-lg btn-success">Highlight Syntax</button>
-		</div>
-				<div class="col-6 d-flex justify-content-center">
-			<button onclick="clearib()" class="btn btn-lg btn-danger">Reset</button>
-		</div>
-		</div>
-		<br>
-		<div class="row px-3">
-		<button onclick="copyText()" id="copybtn" type="button" class="btn btn-outline-info btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
-			Copy to clip-board
-		</button>
-		</div>
-		<div class="row">
-		<div class="col">
-			<pre id ="one" class="pre-scrollable"></pre>
-		</div>
-		</div>
-		<textarea id="hidden" style="height: 0px; width: 0px; border: 0xp;"></textarea>
-	</div>
+		</nav>
 
-	
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+		<!-- Body -->
+		<div class="container-xl bg-light">
+			<div class = "row px-3 pt-3">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Raw JSON</span>
+					</div>
+					<textarea id ="inputbox" class="form-control" aria-label="Raw JSON"></textarea>
+				</div>
+			</div>
+			<br/>
+			<div class ="row">
+				<div class="col-6 d-flex justify-content-center">
+					<button onclick="output(syntaxHighlight(prettyPrint()))" class="btn btn-lg btn-success">Highlight Syntax</button>
+				</div>
+				<div class="col-6 d-flex justify-content-center">
+					<button onclick="clearib()" class="btn btn-lg btn-danger">Reset</button>
+				</div>
+			</div>
+			<br>
+			<div class="row px-3">
+				<button onclick="copyText()" id="copybtn" type="button" class="btn btn-outline-info btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
+					Copy to clip-board
+				</button>
+			</div>
+			<div class="row">
+				<div class="col">
+					<pre id ="one" class="pre-scrollable p-3 my-1"></pre>
+				</div>
+			</div>
+			<textarea id="hidden" style="height: 1px; width: 1px;"></textarea>
+		</div>
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 	</body>
 </html>
