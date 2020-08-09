@@ -1,130 +1,118 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-    <title>KV | JSON Pretty Print</title>
+	<title>KV | JSON Pretty Print</title>
 
-    <style type="text/css">
-			pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
-			.string { color: green; }
-			.number { color: darkorange; }
-			.boolean { color: blue; }
-			.null { color: magenta; }
-			.key { color: red; }
-      textarea.form-control{
-        height: 250px;
-      }
-    </style>
-    
-    <script>
-			function output(inp) {
-        document.getElementById("one").innerHTML = inp;
-			}
+	<style type="text/css">
+		pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; min-height: 500px; max-height: 1000px;}
+		.string { color: green; }
+		.number { color: darkorange; }
+		.boolean { color: blue; }
+		.null { color: magenta; }
+		.key { color: red; }
+		textarea.form-control{
+			height: 250px;
+		}
+	</style>
+	
+	<script>
+		function output(inp) {
+			document.getElementById("one").innerHTML = inp;
+		}
 
-			function syntaxHighlight(json) {
-				json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-				return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-					var cls = 'number';
-					if (/^"/.test(match)) {
-						if (/:$/.test(match)) {
-						    cls = 'key';
-						} else {
-						    cls = 'string';
-						}
-					} else if (/true|false/.test(match)) {
-						cls = 'boolean';
-					} else if (/null/.test(match)) {
-						cls = 'null';
+		function syntaxHighlight(json) {
+			json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+			return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+				var cls = 'number';
+				if (/^"/.test(match)) {
+					if (/:$/.test(match)) {
+						cls = 'key';
+					} else {
+						cls = 'string';
 					}
-					return '<span class="' + cls + '">' + match + '</span>';
-				});
+				} else if (/true|false/.test(match)) {
+					cls = 'boolean';
+				} else if (/null/.test(match)) {
+					cls = 'null';
+				}
+				return '<span class="' + cls + '">' + match + '</span>';
+			});
+		}
+
+		function prettyPrint(){
+			var data = document.getElementById("inputbox").value;
+			try{
+				var obj = JSON.parse(data);
+				var jstring = JSON.stringify(obj, undefined, 4);
+				document.getElementById("hidden").value = jstring;
+				return jstring;
+			} catch(e){
+				return "Invalid JSON!";
 			}
+		}
 
-			function prettyPrint(){
-				var data = document.getElementById("inputbox").value;
-        try{
-          var obj = JSON.parse(data);
-          var jstring = JSON.stringify(obj, undefined, 4);
-          document.getElementById("hidden").value = jstring;
-          return jstring;
-        } catch(e){
-            return "Invalid JSON!";
-        }
-			}
+		function copyText(){
+			var texta = document.getElementById("hidden");
+			texta.select();
+			document.execCommand("copy");
+		}
 
-      function copyText(){
-        var texta = document.getElementById("hidden");
-        texta.select();
-        document.execCommand("copy");
-        //document.getElementById("copybtn").textContent= "Text Copied";
-      }
+		function clearib(){
+			document.getElementById("inputbox").value = '';
+		}
+	</script>
+	</head>
+	<body class = "container-fluid bg-dark">
+	<!-- Nav Area -->
+	<nav class="navbar navbar-dark bg-primary px-0 mx-0">
+		<!-- Navbar content -->
+		<div class="container-xl">
+			<a class="navbar-brand" href="#">JSON Pretty Print</a>
+		</div>
+	</nav>
 
-			function clearib(){
-				document.getElementById("inputbox").value = '';
-			}
-		</script>
-  </head>
-  <body class = "container-fluid bg-dark">
-    <!-- Nav Area -->
-    <nav class="navbar navbar-dark bg-primary px-0 mx-0">
-      <!-- Navbar content -->
-      <div class="container-xl">
-        <a class="navbar-brand" href="#">JSON Pretty Print</a>
-      </div>
-    </nav>
+	<!-- Body -->
+	<div class="container-xl bg-light">
+		<div class = "row px-3 pt-3">
+		<div class="input-group">
+			<div class="input-group-prepend">
+			<span class="input-group-text">Raw JSON</span>
+			</div>
+			<textarea id ="inputbox" class="form-control" aria-label="Raw JSON"></textarea>
+		</div>
+		</div>
+		<br/>
+		<div class ="row">
+		<div class="col-6 d-flex justify-content-center">
+			<button onclick="output(syntaxHighlight(prettyPrint()))" class="btn btn-lg btn-success">Highlight Syntax</button>
+		</div>
+				<div class="col-6 d-flex justify-content-center">
+			<button onclick="clearib()" class="btn btn-lg btn-danger">Reset</button>
+		</div>
+		</div>
+		<br>
+		<div class="row px-3">
+		<button onclick="copyText()" id="copybtn" type="button" class="btn btn-outline-info btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
+			Copy to clip-board
+		</button>
+		</div>
+		<div class="row">
+		<div class="col">
+			<pre id ="one" class="pre-scrollable"></pre>
+		</div>
+		</div>
+		<textarea id="hidden" style="height: 0px; width: 0px; border: 0xp;"></textarea>
+	</div>
 
-    <!-- Body -->
-    <div class="container-xl bg-light">
-      <div class = "row px-3 pt-3">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Raw JSON</span>
-          </div>
-          <textarea id ="inputbox" class="form-control" aria-label="Raw JSON"></textarea>
-        </div>
-      </div>
-      <br/>
-      <div class ="row">
-        <div class="col">
-          <button onclick="clearib()" class="btn btn-lg btn-danger">Clear</button>
-        </div>
-        <div class="col">
-          <button onclick="output(prettyPrint())" class="btn btn-lg btn-success">Pretty Print</button>
-        </div>
-        <div class="col">
-          <button onclick="output(syntaxHighlight(prettyPrint()))" class="btn btn-lg btn-primary">Colorful Print</button>
-        </div>
-      </div>
-      <br>
-      <div class="row px-3">
-        <button onclick="copyText()" id="copybtn" type="button" class="btn btn-outline-info btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
-          Copy to clip-board
-        </button>
-      </div>
-      <div class="row">
-        <div class="col">
-        <pre id ="one" class="pre-scrollable" style="min-height: 500px; max-height: 1000px;">
-
-          </pre>
-        </div>
-      </div>
-      <textarea id="hidden" style="height: 0px; width: 0px; border: 0xp;"></textarea>
-    </div>
-    
-
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-   <!--  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script> -->
-    
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-  </body>
+	
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	</body>
 </html>
